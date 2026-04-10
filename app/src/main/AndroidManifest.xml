@@ -11,15 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ex11042">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Display"
+            android:exported="false" />
+
+        <activity
+            android:name=".Search"
+            android:exported="false" />
+
+        <activity
+            android:name=".Credits"
+            android:exported="false" />
+
     </application>
 
 </manifest>

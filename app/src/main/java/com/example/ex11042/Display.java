@@ -8,12 +8,11 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
-
+public class Display extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.display);
 
         ImageView ivMoreOptions = findViewById(R.id.ivMoreOptions);
         ivMoreOptions.setOnClickListener(new View.OnClickListener() {
@@ -26,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showNavigationMenu(View view) {
         PopupMenu popup = new PopupMenu(this, view);
-        // Add other screens to the menu
-        popup.getMenu().add("Display");
+        popup.getMenu().add("Home");
         popup.getMenu().add("Search");
         popup.getMenu().add("Credits");
 
@@ -35,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 String title = item.getTitle().toString();
-                if (title.equals("Display")) {
-                    startActivity(new Intent(MainActivity.this, Display.class));
+                if (title.equals("Home")) {
+                    startActivity(new Intent(Display.this, MainActivity.class));
                     return true;
                 } else if (title.equals("Search")) {
-                    startActivity(new Intent(MainActivity.this, Search.class));
+                    startActivity(new Intent(Display.this, Search.class));
                     return true;
                 } else if (title.equals("Credits")) {
-                    startActivity(new Intent(MainActivity.this, Credits.class));
+                    startActivity(new Intent(Display.this, Credits.class));
                     return true;
                 }
                 return false;

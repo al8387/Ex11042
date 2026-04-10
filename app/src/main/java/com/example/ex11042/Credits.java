@@ -8,12 +8,11 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
-
+public class Credits extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.credits);
 
         ImageView ivMoreOptions = findViewById(R.id.ivMoreOptions);
         ivMoreOptions.setOnClickListener(new View.OnClickListener() {
@@ -26,23 +25,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void showNavigationMenu(View view) {
         PopupMenu popup = new PopupMenu(this, view);
-        // Add other screens to the menu
+        popup.getMenu().add("Home");
         popup.getMenu().add("Display");
         popup.getMenu().add("Search");
-        popup.getMenu().add("Credits");
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 String title = item.getTitle().toString();
-                if (title.equals("Display")) {
-                    startActivity(new Intent(MainActivity.this, Display.class));
+                if (title.equals("Home")) {
+                    startActivity(new Intent(Credits.this, MainActivity.class));
+                    return true;
+                } else if (title.equals("Display")) {
+                    startActivity(new Intent(Credits.this, Display.class));
                     return true;
                 } else if (title.equals("Search")) {
-                    startActivity(new Intent(MainActivity.this, Search.class));
-                    return true;
-                } else if (title.equals("Credits")) {
-                    startActivity(new Intent(MainActivity.this, Credits.class));
+                    startActivity(new Intent(Credits.this, Search.class));
                     return true;
                 }
                 return false;
