@@ -12,6 +12,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
+/**
+ * Activity for displaying and managing all recorded expenses.
+ * Provides functionality to view, update, and delete expenses from the database.
+ *
+ * @Adam
+ * @version 1.0
+ */
 public class Display extends AppCompatActivity {
 
     private ListView listViewExpenses;
@@ -19,6 +26,13 @@ public class Display extends AppCompatActivity {
     private ArrayList<Expense> expensesList;
     private HelperDB db;
 
+    /**
+     * Initializes the activity, sets up the UI components, and loads the initial data.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +51,20 @@ public class Display extends AppCompatActivity {
         });
     }
 
+    /**
+     * Retrieves all expenses from the database and updates the ListView display.
+     */
     private void loadData() {
         expensesList = db.getAllExpenses();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, expensesList);
         listViewExpenses.setAdapter(adapter);
     }
 
+    /**
+     * Displays a dialog allowing the user to choose between updating or deleting a selected expense.
+     *
+     * @param position The position of the item in the list that was selected.
+     */
     private void showEditDeleteDialog(int position) {
         String[] options = {"Update Expense", "Delete Expense"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -63,6 +85,11 @@ public class Display extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Displays a popup menu for navigation to other screens in the application.
+     *
+     * @param view The view that triggered the menu (overflow icon).
+     */
     private void showNavigationMenu(View view) {
         PopupMenu popup = new PopupMenu(this, view);
         popup.getMenu().add("Home"); popup.getMenu().add("Input");

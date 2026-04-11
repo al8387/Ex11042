@@ -12,12 +12,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
+/**
+ * The main dashboard Activity of the Expense Tracker application.
+ * Displays the total balance and recent transaction history.
+ *
+ * @Adam
+ * @version 1.0
+ */
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvTotalAmount;
     private ListView listViewRecent;
     private HelperDB db;
 
+    /**
+     * Initializes the dashboard, sets up the database connection, and registers UI event listeners.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         fabAddExpense.setOnClickListener(v -> startActivity(new Intent(this, Input.class)));
     }
 
+    /**
+     * Refreshes the total amount and recent expenses list every time the activity returns to the foreground.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -46,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Displays a popup menu for navigating to different screens of the application.
+     *
+     * @param view The view that triggered the menu (overflow icon).
+     */
     private void showNavigationMenu(View view) {
         PopupMenu popup = new PopupMenu(this, view);
         popup.getMenu().add("Input");

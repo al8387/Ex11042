@@ -16,6 +16,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Activity for adding or updating an expense entry.
+ * Provides a form for entering description, amount, date, category, and recurring status.
+ *
+ * @Adam
+ * @version 1.0
+ */
 public class Input extends AppCompatActivity {
 
     private EditText etExpenseDesc, etExpenseAmount, etExpenseDate;
@@ -25,6 +32,13 @@ public class Input extends AppCompatActivity {
     private HelperDB db;
     private int updateId = -1;
 
+    /**
+     * Initializes the activity, sets up form fields, and handles data if in update mode.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +110,11 @@ public class Input extends AppCompatActivity {
         });
     }
 
+    /**
+     * Displays a popup menu for navigating to other parts of the application.
+     *
+     * @param view The view that triggered the menu (overflow icon).
+     */
     private void showNavigationMenu(View view) {
         PopupMenu popup = new PopupMenu(this, view);
         popup.getMenu().add("Home"); popup.getMenu().add("Display");

@@ -14,6 +14,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
+/**
+ * Activity for searching and filtering expenses.
+ * Users can filter expenses by category, price range, and sort order.
+ *
+ * @Adam
+ * @version 1.0
+ */
 public class Search extends AppCompatActivity {
 
     private Spinner spinnerFilterCategory, spinnerSortBy;
@@ -22,6 +29,13 @@ public class Search extends AppCompatActivity {
     private ListView listViewSearchResults;
     private HelperDB db;
 
+    /**
+     * Initializes the activity, sets up the UI components, and populates the spinners.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +63,10 @@ public class Search extends AppCompatActivity {
         btnApplyFilters.setOnClickListener(v -> applyFiltersAndSort());
     }
 
+    /**
+     * Retrieves filter criteria from the UI and queries the database for matching expenses.
+     * Updates the search results ListView.
+     */
     private void applyFiltersAndSort() {
         String cat = spinnerFilterCategory.getSelectedItem().toString();
         String sort = spinnerSortBy.getSelectedItem().toString();
@@ -65,6 +83,11 @@ public class Search extends AppCompatActivity {
         }
     }
 
+    /**
+     * Displays a popup menu for navigation to other screens.
+     *
+     * @param view The view that triggered the menu (overflow icon).
+     */
     private void showNavigationMenu(View view) {
         PopupMenu popup = new PopupMenu(this, view);
         popup.getMenu().add("Home"); popup.getMenu().add("Display");
