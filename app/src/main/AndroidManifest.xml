@@ -26,11 +26,15 @@
             android:exported="false" />
 
         <activity
-            android:name=".Search"
+            android:name=".Input"
             android:exported="false" />
 
         <activity
             android:name=".Credits"
+            android:exported="false" />
+
+        <activity
+            android:name=".Search"
             android:exported="false" />
 
     </application>

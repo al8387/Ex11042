@@ -40,7 +40,7 @@ public class Credits extends AppCompatActivity {
                     startActivity(new Intent(Credits.this, Display.class));
                     return true;
                 } else if (title.equals("Search")) {
-                    startActivity(new Intent(Credits.this, Search.class));
+                    startActivity(new Intent(Credits.this, Input.class));
                     return true;
                 }
                 return false;
