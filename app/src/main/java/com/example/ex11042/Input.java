@@ -23,6 +23,7 @@ public class Input extends AppCompatActivity {
     private CheckBox cbRecurring;
     private Button btnSaveExpense;
     private HelperDB db;
+    private int updateId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +42,32 @@ public class Input extends AppCompatActivity {
 
         ivMoreOptions.setOnClickListener(v -> showNavigationMenu(v));
 
-        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        etExpenseDate.setText(today);
-
         String[] categories = {"Food & Dining", "Transportation", "Shopping", "Entertainment", "Bills & Utilities", "Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
         spinnerInputCategory.setAdapter(adapter);
+
+        updateId = getIntent().getIntExtra("EXPENSE_ID", -1);
+
+        if (updateId != -1) {
+            Expense existingExpense = db.getExpenseById(updateId);
+            if (existingExpense != null) {
+                etExpenseDesc.setText(existingExpense.getDescription());
+                etExpenseAmount.setText(String.valueOf(existingExpense.getAmount()));
+                etExpenseDate.setText(existingExpense.getDate());
+                cbRecurring.setChecked(existingExpense.isRecurring());
+                btnSaveExpense.setText("Update Expense");
+
+                for (int i = 0; i < categories.length; i++) {
+                    if (categories[i].equals(existingExpense.getCategory())) {
+                        spinnerInputCategory.setSelection(i);
+                        break;
+                    }
+                }
+            }
+        } else {
+            String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+            etExpenseDate.setText(today);
+        }
 
         btnSaveExpense.setOnClickListener(v -> {
             String desc = etExpenseDesc.getText().toString().trim();
@@ -60,15 +81,18 @@ public class Input extends AppCompatActivity {
                 return;
             }
 
-            try {
-                double amount = Double.parseDouble(amountStr);
+            double amount = Double.parseDouble(amountStr);
+
+            if (updateId != -1) {
+                db.updateExpense(updateId, desc, amount, category, date, recurring);
+                Toast.makeText(Input.this, "Updated successfully!", Toast.LENGTH_SHORT).show();
+            } else {
                 db.addExpense(desc, amount, category, date, recurring);
                 Toast.makeText(Input.this, "Saved successfully!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Input.this, Display.class));
-                finish();
-            } catch (Exception e) {
-                Toast.makeText(Input.this, "Error saving data", Toast.LENGTH_SHORT).show();
             }
+
+            startActivity(new Intent(Input.this, Display.class));
+            finish();
         });
     }
 

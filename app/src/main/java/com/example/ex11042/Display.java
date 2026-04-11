@@ -44,12 +44,17 @@ public class Display extends AppCompatActivity {
     }
 
     private void showEditDeleteDialog(int position) {
-        String[] options = {"Delete Expense"};
+        String[] options = {"Update Expense", "Delete Expense"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Action");
         builder.setItems(options, (dialog, which) -> {
+            Expense expense = expensesList.get(position);
+
             if (which == 0) {
-                Expense expense = expensesList.get(position);
+                Intent intent = new Intent(this, Input.class);
+                intent.putExtra("EXPENSE_ID", expense.getId());
+                startActivity(intent);
+            } else if (which == 1) {
                 db.deleteExpense(expense.getId());
                 loadData();
                 Toast.makeText(this, "Deleted: " + expense.getDescription(), Toast.LENGTH_SHORT).show();

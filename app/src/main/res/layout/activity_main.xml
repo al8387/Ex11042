@@ -18,7 +18,7 @@
             android:id="@+id/tvAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expense Tracker"
+            android:text="Expense tracker"
             android:textColor="#212529"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -67,36 +67,20 @@
         tools:text="$0.00" />
 
     <TextView
-        android:id="@+id/tvComparison"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="#E8F0FE"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="6dp"
-        android:text="~ FROM LAST MONTH"
-        android:textColor="#1A73E8"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTotalAmount" />
-
-    <TextView
         android:id="@+id/tvRecentActivityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="48dp"
-        android:text="Recent Activity"
+        android:text="Recent activity (last week)"
         android:textColor="#212529"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvComparison" />
+        app:layout_constraintTop_toBottomOf="@id/tvTotalAmount" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewExpenses"
+    <ListView
+        android:id="@+id/listViewRecent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"

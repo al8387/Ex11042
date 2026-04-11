@@ -78,10 +78,52 @@ public class HelperDB extends SQLiteOpenHelper {
         return list;
     }
 
+    public ArrayList<Expense> getRecentExpensesLastWeek() {
+        ArrayList<Expense> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_EXPENSES + " WHERE " + COLUMN_DATE + " >= date('now', '-7 days') ORDER BY " + COLUMN_DATE + " DESC";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(new Expense(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2),
+                        cursor.getString(3), cursor.getString(4), cursor.getInt(5) == 1));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
     public void deleteExpense(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_EXPENSES, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
+    }
+
+    public void updateExpense(int id, String desc, double amount, String category, String date, int recurring) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_DESCRIPTION, desc);
+        values.put(COLUMN_AMOUNT, amount);
+        values.put(COLUMN_CATEGORY, category);
+        values.put(COLUMN_DATE, date);
+        values.put(COLUMN_RECURRING, recurring);
+        db.update(TABLE_EXPENSES, values, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    public Expense getExpenseById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_EXPENSES, null, COLUMN_ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
+        Expense expense = null;
+        if (cursor.moveToFirst()) {
+            expense = new Expense(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2),
+                    cursor.getString(3), cursor.getString(4), cursor.getInt(5) == 1);
+        }
+        cursor.close();
+        db.close();
+        return expense;
     }
 
     public ArrayList<Expense> getFilteredExpenses(String minPrice, String maxPrice, String categoryFilter, String sortOrder) {
